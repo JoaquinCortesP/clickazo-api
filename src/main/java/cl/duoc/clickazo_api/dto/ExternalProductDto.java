@@ -6,9 +6,17 @@ import lombok.Setter;
 @Setter
 public class ExternalProductDto {
 
-    private String nombre;
-    private Double precio;
-    private String tienda;
-    private String imagenUrl;
-    private String affiliateUrl;
+    private String id;
+    private String title;
+    private Double price;
+    private Double originalPrice;
+    private Double discountPercentage;
+    private String permalink;
+    private String thumbnail;
+    private String siteId;
+    private Long sellerId;
+    private String sellerNickname;
+    private String lastUpdated;
+    private String dateCreated;
+    private String stopTime;
 }

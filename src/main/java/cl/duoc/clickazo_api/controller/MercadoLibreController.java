@@ -1,6 +1,10 @@
 package cl.duoc.clickazo_api.controller;
+
 import cl.duoc.clickazo_api.dto.ExternalProductDto;
 import cl.duoc.clickazo_api.mercadolibre.MercadoLibreClient;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +21,26 @@ public class MercadoLibreController {
     }
 
     @GetMapping("/search")
+    @Operation(summary = "Busca productos en Mercado Libre", description = "Consulta la API oficial de Mercado Libre Chile ordenada por precio ascendente.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Resultados obtenidos correctamente"),
+            @ApiResponse(responseCode = "502", description = "Error al comunicarse con Mercado Libre"),
+            @ApiResponse(responseCode = "503", description = "Mercado Libre no disponible")
+    })
+    // Returns search results ordered by price using Mercado Libre data.
     public List<ExternalProductDto> search(@RequestParam String q) {
         return client.search(q);
+    }
+
+    @GetMapping("/favorites")
+    @Operation(summary = "Obtiene detalles de favoritos", description = "Devuelve detalles y ordena favoritos por recencia o descuento.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Favoritos obtenidos correctamente"),
+            @ApiResponse(responseCode = "502", description = "Error al comunicarse con Mercado Libre"),
+            @ApiResponse(responseCode = "503", description = "Mercado Libre no disponible")
+    })
+    // Returns favorite items ordered by recency, discount, or price.
+    public List<ExternalProductDto> favorites(@RequestParam String ids) {
+        return client.favorites(ids);
     }
 }
