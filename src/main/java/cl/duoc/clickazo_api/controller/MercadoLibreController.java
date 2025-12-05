@@ -3,6 +3,7 @@ package cl.duoc.clickazo_api.controller;
 import cl.duoc.clickazo_api.dto.ExternalProductDto;
 import cl.duoc.clickazo_api.mercadolibre.MercadoLibreClient;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +29,7 @@ public class MercadoLibreController {
             @ApiResponse(responseCode = "503", description = "Mercado Libre no disponible")
     })
     // Returns search results ordered by price using Mercado Libre data.
-    public List<ExternalProductDto> search(@RequestParam String q) {
+    public List<ExternalProductDto> search(@Parameter(description = "Texto a buscar en Mercado Libre") @RequestParam String q) {
         return client.search(q);
     }
 
@@ -40,7 +41,7 @@ public class MercadoLibreController {
             @ApiResponse(responseCode = "503", description = "Mercado Libre no disponible")
     })
     // Returns favorite items ordered by recency, discount, or price.
-    public List<ExternalProductDto> favorites(@RequestParam String ids) {
+    public List<ExternalProductDto> favorites(@Parameter(description = "IDs de items separados por coma") @RequestParam String ids) {
         return client.favorites(ids);
     }
 }

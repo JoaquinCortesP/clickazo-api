@@ -31,7 +31,7 @@ public class MercadoLibreAuthService {
             @Value("${meli.refresh-token}") String refreshToken,
             @Value("${meli.grant-type:refresh_token}") String grantType
     ) {
-        this.webClient = builder.baseUrl("https://api.mercadolibre.com").build();
+        this.webClient = builder.baseUrl("http://developers.mercadolibre.com").build();
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.refreshToken = refreshToken;

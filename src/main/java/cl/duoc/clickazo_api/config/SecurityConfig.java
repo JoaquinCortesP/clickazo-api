@@ -51,6 +51,7 @@ public class SecurityConfig {
                 // endpoints públicos de lectura
                 .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/external/mercadolibre/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/external/mercadolibre/notificaciones").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/contact").permitAll()
 
                 // resto de productos: solo ADMIN

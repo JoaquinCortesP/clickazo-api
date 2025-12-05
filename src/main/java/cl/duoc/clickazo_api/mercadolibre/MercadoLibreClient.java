@@ -21,7 +21,7 @@ public class MercadoLibreClient {
     private final MercadoLibreAuthService authService;
 
     public MercadoLibreClient(WebClient.Builder builder, MercadoLibreAuthService authService) {
-        this.webClient = builder.baseUrl("https://api.mercadolibre.com").build();
+        this.webClient = builder.baseUrl("http://developers.mercadolibre.com").build();
         this.authService = authService;
     }
 
