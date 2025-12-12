@@ -32,32 +32,18 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-            // para un backend tipo API, desactivamos CSRF
             .csrf(csrf -> csrf.disable())
             .cors(cors -> { })
-            // dejar que H2 use frames (iframe)
             .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
             .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                // auth pública
                 .requestMatchers("/api/auth/**").permitAll()
-
-                // swagger / openapi públicos
                 .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
-
-                // H2 console pública (solo en desarrollo)
                 .requestMatchers("/h2-console/**").permitAll()
-
-                // endpoints públicos de lectura
+                .requestMatchers("/api/external/fakestore/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/external/mercadolibre/**").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/external/mercadolibre/notificaciones").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/contact").permitAll()
-
-                // resto de productos: solo ADMIN
                 .requestMatchers("/api/products/**").hasRole("ADMIN")
-
-                // cualquier otra ruta: requiere estar autenticado
                 .anyRequest().authenticated()
             )
             .userDetailsService(userDetailsService)
